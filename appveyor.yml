@@ -1,0 +1,22 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+install:
+- cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"'
+build_script:
+- cmd: >-
+    msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" ArgumentParserSharp.sln
+
+    msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" ArgumentParserSharp.sln
+
+    mkdir Artifacts\ArgumentParserSharp
+
+    copy ArgumentParserSharp\bin\Release\netstandard2.0\ArgumentParserSharp.dll Artifacts\ArgumentParserSharp\
+
+    copy ArgumentParserSharp\bin\Release\netstandard2.0\ArgumentParserSharp.pdb Artifacts\ArgumentParserSharp\
+
+    cd Artifacts
+
+    7z a -mx=9 -r ArgumentParserSharp.zip ArgumentParserSharp\
+artifacts:
+- path: Artifacts\ArgumentParserSharp.zip
+  name: ArgumentParserSharp
