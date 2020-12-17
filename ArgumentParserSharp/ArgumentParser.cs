@@ -323,7 +323,7 @@ namespace ArgumentParserSharp
         public T GetValue<T>(char shortOptName)
         {
             var value = GetValue(shortOptName);
-            if (value == null)
+            if (value is null)
             {
                 throw new ArgumentParserValueEmptyException(shortOptName);
             }
@@ -365,7 +365,7 @@ namespace ArgumentParserSharp
         public T GetValue<T>(string longOptName)
         {
             var value = GetValue(longOptName);
-            if (value == null)
+            if (value is null)
             {
                 throw new ArgumentParserValueEmptyException(longOptName);
             }
@@ -410,7 +410,7 @@ namespace ArgumentParserSharp
             foreach (var item in _options)
             {
                 writer.Write(IndentString);
-                if (item.LongOptName == null)
+                if (item.LongOptName is null)
                 {
                     ShowShortOptionDescription(writer, item);
                 }
@@ -499,7 +499,7 @@ namespace ArgumentParserSharp
                     item.Value = value ?? StringTrue;
                     return idx;
                 case OptionType.RequiredArgument:
-                    if (value == null)
+                    if (value is null)
                     {
                         if (idx + 1 >= args.Length)
                         {
