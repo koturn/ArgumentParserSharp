@@ -528,7 +528,7 @@ namespace ArgumentParserSharp
         {
             if (!_shortOptDict.TryGetValue(shortOptName, out var optItem))
             {
-                throw new ArgumentParserUnknownOptionException(shortOptName);
+                ThrowArgumentParserUnknownOptionException(shortOptName);
             }
             return optItem;
         }
@@ -543,7 +543,7 @@ namespace ArgumentParserSharp
         {
             if (!_longOptDict.TryGetValue(longOptName, out var optItem))
             {
-                throw new ArgumentParserUnknownOptionException(longOptName);
+                ThrowArgumentParserUnknownOptionException(longOptName);
             }
             return optItem;
         }
@@ -561,7 +561,7 @@ namespace ArgumentParserSharp
                 .ToArray();
             if (optItems.Length == 0)
             {
-                throw new ArgumentParserUnknownOptionException(longOptName);
+                ThrowArgumentParserUnknownOptionException(longOptName);
             }
             return optItems;
         }
@@ -619,6 +619,24 @@ namespace ArgumentParserSharp
                     writer.Write("=" + item.Metavar);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Throw <see cref="ArgumentParserUnknownOptionException"/>.
+        /// </summary>
+        /// <param name="shortOptName">Short option name.</param>
+        private static void ThrowArgumentParserUnknownOptionException(char shortOptName)
+        {
+            throw new ArgumentParserUnknownOptionException(shortOptName);
+        }
+
+        /// <summary>
+        /// Throw <see cref="ArgumentParserUnknownOptionException"/>.
+        /// </summary>
+        /// <param name="longOptName">Long option name.</param>
+        private static void ThrowArgumentParserUnknownOptionException(string longOptName)
+        {
+            throw new ArgumentParserUnknownOptionException(longOptName);
         }
         #endregion
     }
