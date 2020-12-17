@@ -497,7 +497,7 @@ namespace ArgumentParserSharp
                     item.Value = StringTrue;
                     return idx;
                 case OptionType.OptionalArgument:
-                    item.Value = (value == null ? StringTrue : value);
+                    item.Value = value ?? StringTrue;
                     return idx;
                 case OptionType.RequiredArgument:
                     if (value == null)
