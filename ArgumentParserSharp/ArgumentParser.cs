@@ -286,7 +286,7 @@ namespace ArgumentParserSharp
         /// <returns>True if an option has value, otherwise false.</returns>
         public bool Exists(char shortOptName)
         {
-            return _shortOptDict[shortOptName].Value != null;
+            return Get(shortOptName) != null;
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace ArgumentParserSharp
         /// <returns>True if an option has value, otherwise false.</returns>
         public bool Exists(string longOptName)
         {
-            return _longOptDict[longOptName].Value != null;
+            return Get(longOptName) != null;
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace ArgumentParserSharp
         /// <returns>Option value.</returns>
         public string Get(char shortOptName)
         {
-            return _shortOptDict[shortOptName].Value;
+            return GetOptionItem(shortOptName).Value;
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserValueEmptyException">Throw if option value is empty.</exception>
         public T Get<T>(char shortOptName)
         {
-            var value = _shortOptDict[shortOptName].Value;
+            var value = Get(shortOptName);
             if (value == null)
             {
                 throw new ArgumentParserValueEmptyException(shortOptName);
@@ -335,7 +335,7 @@ namespace ArgumentParserSharp
         /// <returns>Converted option value.</returns>
         public T Get<T>(char shortOptName, Func<string, T> convert)
         {
-            return convert(_shortOptDict[shortOptName].Value);
+            return convert(Get(shortOptName));
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace ArgumentParserSharp
         /// <returns>Option value.</returns>
         public string Get(string longOptName)
         {
-            return _longOptDict[longOptName].Value;
+            return GetOptionItem(longOptName).Value;
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserValueEmptyException">Throw if option value is empty.</exception>
         public T Get<T>(string longOptName)
         {
-            var value = _longOptDict[longOptName].Value;
+            var value = Get(longOptName);
             if (value == null)
             {
                 throw new ArgumentParserValueEmptyException(longOptName);
@@ -374,7 +374,7 @@ namespace ArgumentParserSharp
         /// <returns>Converted option value.</returns>
         public T Get<T>(string longOptName, Func<string, T> convert)
         {
-            return convert(_longOptDict[longOptName].Value);
+            return convert(Get(longOptName));
         }
 
         /// <summary>
@@ -436,11 +436,7 @@ namespace ArgumentParserSharp
             for (int i = 1; i < arg.Length; i++)
             {
                 var shortOptName = arg[i];
-                if (!_shortOptDict.ContainsKey(shortOptName))
-                {
-                    throw new ArgumentParserUnknownOptionException(shortOptName);
-                }
-                var item = _shortOptDict[shortOptName];
+                var item = GetOptionItem(shortOptName);
                 if (item.OptType == OptionType.NoArgument)
                 {
                     item.Value = StringTrue;
@@ -475,8 +471,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserDoesNotTakeArgumentException">Throw if non argument-required option is given an argument.</exception>
         private int ParseLongOption(string[] args, int idx)
         {
-            string longOptName, value;
-            SplitFirstPos(args[idx].Substring(2), '=', out longOptName, out value);
+            SplitFirstPos(args[idx].Substring(2), '=', out var longOptName, out var value);
             var items = _longOptDict.Where(pair => pair.Key.StartsWith(longOptName)).Select(pair => pair.Value).ToArray();
             if (items.Length == 0)
             {
@@ -517,6 +512,36 @@ namespace ArgumentParserSharp
                 default:
                     return -1;
             }
+        }
+
+        /// <summary>
+        /// Get <see cref="OptionItem"/> with short name.
+        /// </summary>
+        /// <param name="shortOptName">Short name of option.</param>
+        /// <returns><see cref="OptionItem"/>.</returns>
+        /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
+        private OptionItem GetOptionItem(char shortOptName)
+        {
+            if (!_shortOptDict.TryGetValue(shortOptName, out var optItem))
+            {
+                throw new ArgumentParserUnknownOptionException(shortOptName);
+            }
+            return optItem;
+        }
+
+        /// <summary>
+        /// Get <see cref="OptionItem"/> with long name.
+        /// </summary>
+        /// <param name="longOptName">Long name of option.</param>
+        /// <returns><see cref="OptionItem"/>.</returns>
+        /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
+        private OptionItem GetOptionItem(string longOptName)
+        {
+            if (!_longOptDict.TryGetValue(longOptName, out var optItem))
+            {
+                throw new ArgumentParserUnknownOptionException(longOptName);
+            }
+            return optItem;
         }
 
         /// <summary>
