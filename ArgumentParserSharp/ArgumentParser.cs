@@ -66,7 +66,7 @@ namespace ArgumentParserSharp
         /// <summary>
         /// Description for this program.
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// String indent which used in <see cref="ShowUsage()"/>.
         /// </summary>
@@ -122,7 +122,7 @@ namespace ArgumentParserSharp
         /// <param name="description">Description for this option.</param>
         /// <param name="metavar">Name of meta variable for this option. (This value is used in <see cref="ShowUsage()"/>)</param>
         /// <param name="defaultValue">Default value of this option.</param>
-        public void Add(char shortOptName, string longOptName, OptionType optType, string description = null, string metavar = null, string defaultValue = null)
+        public void Add(char shortOptName, string longOptName, OptionType optType, string? description = null, string? metavar = null, string? defaultValue = null)
         {
             var item = new OptionItem(shortOptName, longOptName, optType, description, metavar, defaultValue);
             _options.Add(item);
@@ -138,7 +138,7 @@ namespace ArgumentParserSharp
         /// <param name="description">Description for this option.</param>
         /// <param name="metavar">Name of meta variable for this option. (This value is used in <see cref="ShowUsage()"/>)</param>
         /// <param name="defaultValue">Default value of this option.</param>
-        public void Add(char shortOptName, OptionType optType, string description = null, string metavar = null, string defaultValue = null)
+        public void Add(char shortOptName, OptionType optType, string? description = null, string? metavar = null, string? defaultValue = null)
         {
             var item = new OptionItem(shortOptName, null, optType, description, metavar, defaultValue);
             _options.Add(item);
@@ -153,7 +153,7 @@ namespace ArgumentParserSharp
         /// <param name="description">Description for this option.</param>
         /// <param name="metavar">Name of meta variable for this option. (This value is used in <see cref="ShowUsage()"/>)</param>
         /// <param name="defaultValue">Default value of this option.</param>
-        public void Add(string longOptName, OptionType optType, string description = null, string metavar = null, string defaultValue = null)
+        public void Add(string longOptName, OptionType optType, string? description = null, string? metavar = null, string? defaultValue = null)
         {
             var item = new OptionItem('\0', longOptName, optType, description, metavar, defaultValue);
             _options.Add(item);
@@ -173,7 +173,7 @@ namespace ArgumentParserSharp
         /// <param name="defaultValue">Default value of this option.</param>
         public void Add<T>(char shortOptName, string longOptName, OptionType optType, string description, string metavar, T defaultValue)
         {
-            Add(shortOptName, longOptName, optType, description, metavar, defaultValue.ToString());
+            Add(shortOptName, longOptName, optType, description, metavar, defaultValue is null ? "" : defaultValue.ToString());
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace ArgumentParserSharp
         /// <param name="defaultValue">Default value of this option.</param>
         public void Add<T>(char shortOptName, OptionType optType, string description, string metavar, T defaultValue)
         {
-            Add(shortOptName, optType, description, metavar, defaultValue.ToString());
+            Add(shortOptName, optType, description, metavar, defaultValue is null ? "" : defaultValue.ToString());
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace ArgumentParserSharp
         /// <param name="defaultValue">Default value of this option.</param>
         public void Add<T>(string longOptName, OptionType optType, string description, string metavar, T defaultValue)
         {
-            Add(longOptName, optType, description, metavar, defaultValue.ToString());
+            Add(longOptName, optType, description, metavar, defaultValue is null ? "" : defaultValue.ToString());
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace ArgumentParserSharp
         /// <param name="shortOptName">Short option name.</param>
         /// <param name="longOptName">Long option name.</param>
         /// <param name="description">Description for this option.</param>
-        public void Add(char shortOptName, string longOptName, string description = null)
+        public void Add(char shortOptName, string longOptName, string? description = null)
         {
             Add(shortOptName, longOptName, OptionType.NoArgument, description, null, StringFalse);
         }
@@ -224,7 +224,7 @@ namespace ArgumentParserSharp
         /// </summary>
         /// <param name="shortOptName">Short option name.</param>
         /// <param name="description">Description for this option.</param>
-        public void Add(char shortOptName, string description = null)
+        public void Add(char shortOptName, string? description = null)
         {
             Add(shortOptName, OptionType.NoArgument, description, null, StringFalse);
         }
@@ -235,7 +235,7 @@ namespace ArgumentParserSharp
         /// </summary>
         /// <param name="longOptName">Long option name.</param>
         /// <param name="description">Description for this option.</param>
-        public void Add(string longOptName, string description = null)
+        public void Add(string longOptName, string? description = null)
         {
             Add(longOptName, OptionType.NoArgument, description, null, StringFalse);
         }
@@ -287,7 +287,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
         public bool HasValue(char shortOptName)
         {
-            return GetValue(shortOptName) != null;
+            return !(GetValue(shortOptName) is null);
         }
 
         /// <summary>
@@ -298,7 +298,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
         public bool HasValue(string longOptName)
         {
-            return GetValue(longOptName) != null;
+            return !(GetValue(longOptName) is null);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace ArgumentParserSharp
         /// <param name="shortOptName">Short name of option.</param>
         /// <returns>Option value.</returns>
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
-        public string GetValue(char shortOptName)
+        public string? GetValue(char shortOptName)
         {
             return GetOptionItem(shortOptName).Value;
         }
@@ -338,7 +338,7 @@ namespace ArgumentParserSharp
         /// <param name="convert">String value converter.</param>
         /// <returns>Converted option value.</returns>
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
-        public T GetValue<T>(char shortOptName, Func<string, T> convert)
+        public T GetValue<T>(char shortOptName, Func<string?, T> convert)
         {
             return convert(GetValue(shortOptName));
         }
@@ -349,7 +349,7 @@ namespace ArgumentParserSharp
         /// <param name="longOptName">Long option name.</param>
         /// <returns>Option value.</returns>
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
-        public string GetValue(string longOptName)
+        public string? GetValue(string longOptName)
         {
             return GetOptionItem(longOptName).Value;
         }
@@ -380,7 +380,7 @@ namespace ArgumentParserSharp
         /// <param name="convert">String value converter.</param>
         /// <returns>Converted option value.</returns>
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
-        public T GetValue<T>(string longOptName, Func<string, T> convert)
+        public T GetValue<T>(string longOptName, Func<string?, T> convert)
         {
             return convert(GetValue(longOptName));
         }
@@ -399,7 +399,7 @@ namespace ArgumentParserSharp
         /// <param name="writer">TextWriter to output message.</param>
         public void ShowUsage(TextWriter writer)
         {
-            if (Description != null)
+            if (!(Description is null))
             {
                 writer.WriteLine(Description + Environment.NewLine);
             }
@@ -407,9 +407,10 @@ namespace ArgumentParserSharp
                 "[Usage]" + Environment.NewLine
                 + ProgName + " [Options ...] [Arguments ...]" + Environment.NewLine + Environment.NewLine
                 + "[Options]");
+            var indentString = IndentString ?? "";
             foreach (var item in _options)
             {
-                writer.Write(IndentString);
+                writer.Write(indentString);
                 if (item.LongOptName is null)
                 {
                     ShowShortOptionDescription(writer, item);
@@ -424,7 +425,7 @@ namespace ArgumentParserSharp
                     writer.Write(", ");
                     ShowLongOptionDescription(writer, item);
                 }
-                writer.WriteLine(Environment.NewLine + IndentString + IndentString + item.Description);
+                writer.WriteLine(Environment.NewLine + indentString + indentString + item.Description);
             }
         }
         #endregion
@@ -489,7 +490,7 @@ namespace ArgumentParserSharp
             switch (item.OptType)
             {
                 case OptionType.NoArgument:
-                    if (value != null)
+                    if (!(value is null))
                     {
                         throw new ArgumentParserDoesNotTakeArgumentException(longOptName, value);
                     }
@@ -573,7 +574,7 @@ namespace ArgumentParserSharp
         /// <param name="ch">Separator character.</param>
         /// <param name="first">First part of separated string. If target string doesn't have a character <paramref name="ch"/>, store <paramref name="str"/> to this variable</param>
         /// <param name="second">Second part of separated string. If target string doesn't have a character <paramref name="ch"/>, store <c>null</c> to this variable</param>
-        private void SplitFirstPos(string str, char ch, out string first, out string second)
+        private void SplitFirstPos(string str, char ch, out string first, out string? second)
         {
             var pos = str.IndexOf(ch);
             if (pos == -1)

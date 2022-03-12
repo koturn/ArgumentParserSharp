@@ -13,15 +13,15 @@
         /// <summary>
         /// Long option name.
         /// </summary>
-        public string LongOptName { get; }
+        public string? LongOptName { get; }
         /// <summary>
         /// Description for this option.
         /// </summary>
-        public string Description { get; }
+        public string? Description { get; }
         /// <summary>
         /// Name of meta variable for option parameter.
         /// </summary>
-        public string Metavar { get; }
+        public string? Metavar { get; }
         /// <summary>
         /// Option type.
         /// </summary>
@@ -29,7 +29,7 @@
         /// <summary>
         /// Value of this option.
         /// </summary>
-        public string Value { get; set; }
+        public string? Value { get; set; }
         #endregion
 
         #region Ctors
@@ -42,7 +42,7 @@
         /// <param name="description">Description for this option.</param>
         /// <param name="metavar">Name of meta variable for option parameter.</param>
         /// <param name="defaultValue">Default value of this option.</param>
-        public OptionItem(char shortOptName, string longOptName, OptionType optType, string description = "", string metavar = "", string defaultValue = "")
+        public OptionItem(char shortOptName, string? longOptName, OptionType optType, string? description = null, string? metavar = null, string? defaultValue = null)
         {
             ShortOptName = shortOptName;
             LongOptName = longOptName;
