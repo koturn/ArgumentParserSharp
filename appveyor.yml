@@ -4,9 +4,9 @@ install:
 - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"'
 build_script:
 - cmd: >-
-    msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" ArgumentParserSharp.sln
+    dotnet restore /p:Platform="Any CPU" ArgumentParserSharp.sln
 
-    msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" ArgumentParserSharp.sln
+    dotnet build -c Release /p:Platform="Any CPU" ArgumentParserSharp.sln
 
     mkdir Artifacts\ArgumentParserSharp
 
