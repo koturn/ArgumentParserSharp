@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using ArgumentParserSharp.Exceptions;
@@ -626,6 +627,7 @@ namespace ArgumentParserSharp
         /// Throw <see cref="ArgumentParserUnknownOptionException"/>.
         /// </summary>
         /// <param name="shortOptName">Short option name.</param>
+        [DoesNotReturn]
         private static void ThrowArgumentParserUnknownOptionException(char shortOptName)
         {
             throw new ArgumentParserUnknownOptionException(shortOptName);
@@ -635,6 +637,7 @@ namespace ArgumentParserSharp
         /// Throw <see cref="ArgumentParserUnknownOptionException"/>.
         /// </summary>
         /// <param name="longOptName">Long option name.</param>
+        [DoesNotReturn]
         private static void ThrowArgumentParserUnknownOptionException(string longOptName)
         {
             throw new ArgumentParserUnknownOptionException(longOptName);

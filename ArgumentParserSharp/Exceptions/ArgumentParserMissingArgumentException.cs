@@ -42,6 +42,9 @@ namespace ArgumentParserSharp.Exceptions
         /// </summary>
         /// <param name="info">The object that holds the serialized object data.</param>
         /// <param name="context">The contextual information about the source or destination.</param>
+#if NET8_0_OR_GREATER
+        [Obsolete(DiagnosticId = "SYSLIB0051")]
+#endif
         protected ArgumentParserMissingArgumentException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
