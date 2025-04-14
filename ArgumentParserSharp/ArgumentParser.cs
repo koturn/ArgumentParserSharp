@@ -567,7 +567,9 @@ namespace ArgumentParserSharp
             }
             return optItems;
         }
+        #endregion
 
+        #region Private static methods
         /// <summary>
         /// Split string at the first position of <paramref name="ch"/>.
         /// </summary>
@@ -575,7 +577,7 @@ namespace ArgumentParserSharp
         /// <param name="ch">Separator character.</param>
         /// <param name="first">First part of separated string. If target string doesn't have a character <paramref name="ch"/>, store <paramref name="str"/> to this variable</param>
         /// <param name="second">Second part of separated string. If target string doesn't have a character <paramref name="ch"/>, store <c>null</c> to this variable</param>
-        private void SplitFirstPos(string str, char ch, out string first, out string? second)
+        private static void SplitFirstPos(string str, char ch, out string first, out string? second)
         {
             var pos = str.IndexOf(ch);
             if (pos == -1)
@@ -595,7 +597,7 @@ namespace ArgumentParserSharp
         /// </summary>
         /// <param name="writer"><see cref="TextWriter"/> instance to output.</param>
         /// <param name="item">Option item of short option.</param>
-        private void ShowShortOptionDescription(TextWriter writer, OptionItem item)
+        private static void ShowShortOptionDescription(TextWriter writer, OptionItem item)
         {
             writer.Write("-" + item.ShortOptName);
             if (item.OptType != OptionType.NoArgument)
@@ -609,7 +611,7 @@ namespace ArgumentParserSharp
         /// </summary>
         /// <param name="writer"><see cref="TextWriter"/> instance to output.</param>
         /// <param name="item">Option item of long option.</param>
-        private void ShowLongOptionDescription(TextWriter writer, OptionItem item)
+        private static void ShowLongOptionDescription(TextWriter writer, OptionItem item)
         {
             writer.Write("--" + item.LongOptName);
             switch (item.OptType)
