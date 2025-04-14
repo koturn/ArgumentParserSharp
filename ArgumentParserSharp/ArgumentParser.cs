@@ -17,42 +17,30 @@ namespace ArgumentParserSharp
         /// <summary>
         /// A string which enable to convert to bool value, true.
         /// </summary>
-        private static readonly string StringTrue;
+        private static readonly string StringTrue = true.ToString();
         /// <summary>
         /// A string which enable to convert to bool value, false.
         /// </summary>
-        private static readonly string StringFalse;
+        private static readonly string StringFalse = false.ToString();
         /// <summary>
         /// String value converter dictionary.
         /// </summary>
-        private static readonly Dictionary<Type, object> DefaultConverterDict;
-        #endregion
-
-        #region static ctor
-        /// <summary>
-        /// Initialize static members.
-        /// </summary>
-        static ArgumentParser()
+        private static readonly Dictionary<Type, object> DefaultConverterDict = new Dictionary<Type, object>()
         {
-            StringTrue = true.ToString();
-            StringFalse = false.ToString();
-            DefaultConverterDict = new Dictionary<Type, object>()
-            {
-                {typeof(bool), (Func<string, bool>)bool.Parse},
-                {typeof(sbyte), (Func<string, sbyte>)sbyte.Parse},
-                {typeof(short), (Func<string, short>)short.Parse},
-                {typeof(int), (Func<string, int>)int.Parse},
-                {typeof(long), (Func<string, long>)long.Parse},
-                {typeof(byte), (Func<string, byte>)byte.Parse},
-                {typeof(ushort), (Func<string, ushort>)ushort.Parse},
-                {typeof(uint), (Func<string, uint>)uint.Parse},
-                {typeof(ulong), (Func<string, ulong>)ulong.Parse},
-                {typeof(float), (Func<string, float>)float.Parse},
-                {typeof(double), (Func<string, double>)double.Parse},
-                {typeof(char), (Func<string, char>)char.Parse},
-                {typeof(string), (Func<string, string>)(s => s)},
-            };
-        }
+            {typeof(bool), (Func<string, bool>)bool.Parse},
+            {typeof(sbyte), (Func<string, sbyte>)sbyte.Parse},
+            {typeof(short), (Func<string, short>)short.Parse},
+            {typeof(int), (Func<string, int>)int.Parse},
+            {typeof(long), (Func<string, long>)long.Parse},
+            {typeof(byte), (Func<string, byte>)byte.Parse},
+            {typeof(ushort), (Func<string, ushort>)ushort.Parse},
+            {typeof(uint), (Func<string, uint>)uint.Parse},
+            {typeof(ulong), (Func<string, ulong>)ulong.Parse},
+            {typeof(float), (Func<string, float>)float.Parse},
+            {typeof(double), (Func<string, double>)double.Parse},
+            {typeof(char), (Func<string, char>)char.Parse},
+            {typeof(string), (Func<string, string>)(s => s)},
+        };
         #endregion
 
         #region Properties
