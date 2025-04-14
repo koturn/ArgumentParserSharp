@@ -257,7 +257,11 @@ namespace ArgumentParserSharp
                     }
                     i = ParseLongOption(args, i);
                 }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_0_OR_GREATER
+                else if (args[i].StartsWith('-') && args[i].Length > 1)
+#else
                 else if (args[i].StartsWith("-") && args[i].Length > 1)
+#endif  // NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_0_OR_GREATER
                 {
                     i = ParseShortOption(args, i);
                 }
