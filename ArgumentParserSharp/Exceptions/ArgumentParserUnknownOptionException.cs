@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
@@ -48,6 +49,30 @@ namespace ArgumentParserSharp.Exceptions
         protected ArgumentParserUnknownOptionException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
+        }
+        #endregion
+
+        #region Static memthods
+        /// <summary>
+        /// Throws <see cref="ArgumentParserUnknownOptionException"/>.
+        /// </summary>
+        /// <param name="shortOptName">Short option name.</param>
+        /// <exception cref="ArgumentParserUnknownOptionException">Always thrown</exception>
+        [DoesNotReturn]
+        public static void Throw(char shortOptName)
+        {
+            throw new ArgumentParserUnknownOptionException(shortOptName);
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentParserUnknownOptionException"/>.
+        /// </summary>
+        /// <param name="longOptName">Long option name.</param>
+        /// <exception cref="ArgumentParserUnknownOptionException">Always thrown</exception>
+        [DoesNotReturn]
+        public static new void Throw(string longOptName)
+        {
+            throw new ArgumentParserUnknownOptionException(longOptName);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
@@ -72,6 +73,67 @@ namespace ArgumentParserSharp.Exceptions
         protected ArgumentParserException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
+        }
+        #endregion
+
+        #region Static memthods
+        /// <summary>
+        /// Throws <see cref="ArgumentParserException"/>.
+        /// </summary>
+        /// <exception cref="ArgumentParserException">Always thrown.</exception>
+        [DoesNotReturn]
+        public static void Throw()
+        {
+            throw new ArgumentParserException();
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentParserException"/>.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <exception cref="ArgumentParserException">Always thrown.</exception>
+        [DoesNotReturn]
+        public static void Throw(string message)
+        {
+            throw new ArgumentParserException(message);
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentParserException"/>.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="inner">The exception that is the cause of the current exception.
+        /// If the innerException parameter is not a null reference,
+        /// the current exception is raised in a catch block that handles the inner exception.</param>
+        /// <exception cref="ArgumentParserException">Always thrown.</exception>
+        [DoesNotReturn]
+        public static void Throw(string message, Exception inner)
+        {
+            throw new ArgumentParserException(message, inner);
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentParserException"/>.
+        /// </summary>
+        /// <param name="message">Exception message.</param>
+        /// <param name="shortOptName">Short option name.</param>
+        /// <exception cref="ArgumentParserException">Always thrown.</exception>
+        [DoesNotReturn]
+        public static void Throw(string message, char shortOptName)
+        {
+            throw new ArgumentParserException(message, shortOptName);
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentParserException"/>.
+        /// </summary>
+        /// <param name="message">Exception message.</param>
+        /// <param name="longOptName">Long option name.</param>
+        /// <exception cref="ArgumentParserException">Always thrown.</exception>
+        [DoesNotReturn]
+        public static void Throw(string message, string longOptName)
+        {
+            throw new ArgumentParserException(message, longOptName);
         }
         #endregion
     }

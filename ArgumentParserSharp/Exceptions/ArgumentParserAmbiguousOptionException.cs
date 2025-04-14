@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
@@ -42,6 +43,19 @@ namespace ArgumentParserSharp.Exceptions
         protected ArgumentParserAmbiguousOptionException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
+        }
+        #endregion
+
+        #region Static memthods
+        /// <summary>
+        /// Throws <see cref="ArgumentParserAmbiguousOptionException"/>.
+        /// </summary>
+        /// <param name="longOptName">Long option name.</param>
+        /// <exception cref="ArgumentParserAmbiguousOptionException">Always thrown</exception>
+        [DoesNotReturn]
+        public static new void Throw(string longOptName)
+        {
+            throw new ArgumentParserAmbiguousOptionException(longOptName);
         }
         #endregion
     }

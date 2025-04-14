@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -326,7 +326,7 @@ namespace ArgumentParserSharp
             var value = GetValue(shortOptName);
             if (value is null)
             {
-                throw new ArgumentParserValueEmptyException(shortOptName);
+                ArgumentParserValueEmptyException.Throw(shortOptName);
             }
             return ((Func<string, T>)DefaultConverterDict[typeof(T)])(value);
         }
@@ -368,7 +368,7 @@ namespace ArgumentParserSharp
             var value = GetValue(longOptName);
             if (value is null)
             {
-                throw new ArgumentParserValueEmptyException(longOptName);
+                ArgumentParserValueEmptyException.Throw(longOptName);
             }
             return ((Func<string, T>)DefaultConverterDict[typeof(T)])(value);
         }
@@ -455,7 +455,7 @@ namespace ArgumentParserSharp
                 {
                     if (idx + 1 >= args.Length)
                     {
-                        throw new ArgumentParserMissingArgumentException(shortOptName);
+                        ArgumentParserMissingArgumentException.Throw(shortOptName);
                     }
                     item.Value = args[idx + 1];
                     return idx + 1;
@@ -485,7 +485,7 @@ namespace ArgumentParserSharp
             var items = GetOptionItems(longOptName);
             if (items.Length > 1)
             {
-                throw new ArgumentParserAmbiguousOptionException(longOptName);
+                ArgumentParserAmbiguousOptionException.Throw(longOptName);
             }
             var item = items[0];
             switch (item.OptType)
@@ -493,7 +493,7 @@ namespace ArgumentParserSharp
                 case OptionType.NoArgument:
                     if (!(value is null))
                     {
-                        throw new ArgumentParserDoesNotTakeArgumentException(longOptName, value);
+                        ArgumentParserDoesNotTakeArgumentException.Throw(longOptName, value);
                     }
                     item.Value = StringTrue;
                     return idx;
@@ -505,7 +505,7 @@ namespace ArgumentParserSharp
                     {
                         if (idx + 1 >= args.Length)
                         {
-                            throw new ArgumentParserMissingArgumentException(longOptName);
+                            ArgumentParserMissingArgumentException.Throw(longOptName);
                         }
                         item.Value = args[idx + 1];
                         return idx + 1;
@@ -530,7 +530,7 @@ namespace ArgumentParserSharp
         {
             if (!_shortOptDict.TryGetValue(shortOptName, out var optItem))
             {
-                ThrowArgumentParserUnknownOptionException(shortOptName);
+                ArgumentParserUnknownOptionException.Throw(shortOptName);
             }
             return optItem;
         }
@@ -545,7 +545,7 @@ namespace ArgumentParserSharp
         {
             if (!_longOptDict.TryGetValue(longOptName, out var optItem))
             {
-                ThrowArgumentParserUnknownOptionException(longOptName);
+                ArgumentParserUnknownOptionException.Throw(longOptName);
             }
             return optItem;
         }
@@ -563,7 +563,7 @@ namespace ArgumentParserSharp
                 .ToArray();
             if (optItems.Length == 0)
             {
-                ThrowArgumentParserUnknownOptionException(longOptName);
+                ArgumentParserUnknownOptionException.Throw(longOptName);
             }
             return optItems;
         }
@@ -621,26 +621,6 @@ namespace ArgumentParserSharp
                     writer.Write("=" + item.Metavar);
                     break;
             }
-        }
-
-        /// <summary>
-        /// Throw <see cref="ArgumentParserUnknownOptionException"/>.
-        /// </summary>
-        /// <param name="shortOptName">Short option name.</param>
-        [DoesNotReturn]
-        private static void ThrowArgumentParserUnknownOptionException(char shortOptName)
-        {
-            throw new ArgumentParserUnknownOptionException(shortOptName);
-        }
-
-        /// <summary>
-        /// Throw <see cref="ArgumentParserUnknownOptionException"/>.
-        /// </summary>
-        /// <param name="longOptName">Long option name.</param>
-        [DoesNotReturn]
-        private static void ThrowArgumentParserUnknownOptionException(string longOptName)
-        {
-            throw new ArgumentParserUnknownOptionException(longOptName);
         }
         #endregion
     }

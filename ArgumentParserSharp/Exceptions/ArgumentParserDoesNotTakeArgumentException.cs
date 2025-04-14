@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
@@ -39,6 +40,20 @@ namespace ArgumentParserSharp.Exceptions
         protected ArgumentParserDoesNotTakeArgumentException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
+        }
+        #endregion
+
+        #region Static memthods
+        /// <summary>
+        /// Throws <see cref="ArgumentParserDoesNotTakeArgumentException"/>.
+        /// </summary>
+        /// <param name="longOptName">Long option name.</param>
+        /// <param name="value">Value for long option.</param>
+        /// <exception cref="ArgumentParserDoesNotTakeArgumentException">Always thrown</exception>
+        [DoesNotReturn]
+        public static new void Throw(string longOptName, string value)
+        {
+            throw new ArgumentParserDoesNotTakeArgumentException(longOptName, value);
         }
         #endregion
     }
