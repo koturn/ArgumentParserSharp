@@ -280,7 +280,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
         public bool HasValue(char shortOptName)
         {
-            return !(GetValue(shortOptName) is null);
+            return GetValue(shortOptName) is not null;
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace ArgumentParserSharp
         /// <exception cref="ArgumentParserUnknownOptionException">Throw if unknown option is specified.</exception>
         public bool HasValue(string longOptName)
         {
-            return !(GetValue(longOptName) is null);
+            return GetValue(longOptName) is not null;
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace ArgumentParserSharp
         /// <param name="writer">TextWriter to output message.</param>
         public void ShowUsage(TextWriter writer)
         {
-            if (!(Description is null))
+            if (Description is not null)
             {
                 writer.WriteLine(Description + Environment.NewLine);
             }
@@ -483,7 +483,7 @@ namespace ArgumentParserSharp
             switch (item.OptType)
             {
                 case OptionType.NoArgument:
-                    if (!(value is null))
+                    if (value is not null)
                     {
                         ArgumentParserDoesNotTakeArgumentException.Throw(longOptName, value);
                     }
