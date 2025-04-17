@@ -9,8 +9,14 @@ A Command Line Argument Parser for .NET.
 ## Build
 
 ```shell
-> msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" ArgumentParserSharp.sln
-> msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" ArgumentParserSharp.sln
+> nmake
+```
+
+
+## Deploy
+
+```shell
+> nmake deploy
 ```
 
 

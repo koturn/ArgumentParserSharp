@@ -4,19 +4,11 @@ install:
 - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"'
 build_script:
 - cmd: >-
-    dotnet restore /p:Platform="Any CPU" ArgumentParserSharp.sln
+    nmake restore
 
-    dotnet build -c Release /p:Platform="Any CPU" ArgumentParserSharp.sln
+    nmake
 
-    mkdir Artifacts\ArgumentParserSharp
-
-    copy ArgumentParserSharp\bin\Release\netstandard2.0\ArgumentParserSharp.dll Artifacts\ArgumentParserSharp\
-
-    copy ArgumentParserSharp\bin\Release\netstandard2.0\ArgumentParserSharp.pdb Artifacts\ArgumentParserSharp\
-
-    cd Artifacts
-
-    7z a -mx=9 -r ArgumentParserSharp.zip ArgumentParserSharp\
+    nmake deploy
 artifacts:
 - path: Artifacts\ArgumentParserSharp.zip
   name: ArgumentParserSharp
