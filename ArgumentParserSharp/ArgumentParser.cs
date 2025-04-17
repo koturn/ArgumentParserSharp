@@ -25,7 +25,7 @@ namespace ArgumentParserSharp
         /// <summary>
         /// String value converter dictionary.
         /// </summary>
-        private static readonly Dictionary<Type, object> DefaultConverterDict = new Dictionary<Type, object>()
+        private static readonly Dictionary<Type, object> DefaultConverterDict = new()
         {
             {typeof(bool), (Func<string, bool>)bool.Parse},
             {typeof(sbyte), (Func<string, sbyte>)sbyte.Parse},
@@ -94,10 +94,10 @@ namespace ArgumentParserSharp
         {
             ProgName = progName;
             IndentString = "  ";
-            Arguments = new List<string>();
-            _options = new List<OptionItem>();
-            _shortOptDict = new Dictionary<char, OptionItem>();
-            _longOptDict = new Dictionary<string, OptionItem>();
+            Arguments = [];
+            _options = [];
+            _shortOptDict = [];
+            _longOptDict = [];
         }
         #endregion
 
