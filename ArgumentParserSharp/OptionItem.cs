@@ -1,56 +1,44 @@
-﻿namespace ArgumentParserSharp
+namespace ArgumentParserSharp
 {
     /// <summary>
     /// One option item.
     /// </summary>
-    public class OptionItem
+    /// <remarks>
+    /// Primary ctor: Create one option item.
+    /// </remarks>
+    /// <param name="shortOptName">Short option name.</param>
+    /// <param name="longOptName">Long option name.</param>
+    /// <param name="optType">Option type.</param>
+    /// <param name="description">Description for this option.</param>
+    /// <param name="metavar">Name of meta variable for option parameter.</param>
+    /// <param name="defaultValue">Default value of this option.</param>
+    public class OptionItem(char shortOptName, string? longOptName, OptionType optType, string? description = null, string? metavar = null, string? defaultValue = null)
     {
         #region Properties
         /// <summary>
         /// Short option name.
         /// </summary>
-        public char ShortOptName { get; }
+        public char ShortOptName { get; } = shortOptName;
         /// <summary>
         /// Long option name.
         /// </summary>
-        public string? LongOptName { get; }
+        public string? LongOptName { get; } = longOptName;
         /// <summary>
         /// Description for this option.
         /// </summary>
-        public string? Description { get; }
+        public string? Description { get; } = description;
         /// <summary>
         /// Name of meta variable for option parameter.
         /// </summary>
-        public string? Metavar { get; }
+        public string? Metavar { get; } = metavar;
         /// <summary>
         /// Option type.
         /// </summary>
-        public OptionType OptType { get; }
+        public OptionType OptType { get; } = optType;
         /// <summary>
         /// Value of this option.
         /// </summary>
-        public string? Value { get; set; }
-        #endregion
-
-        #region Ctors
-        /// <summary>
-        /// Create one option item.
-        /// </summary>
-        /// <param name="shortOptName">Short option name.</param>
-        /// <param name="longOptName">Long option name.</param>
-        /// <param name="optType">Option type.</param>
-        /// <param name="description">Description for this option.</param>
-        /// <param name="metavar">Name of meta variable for option parameter.</param>
-        /// <param name="defaultValue">Default value of this option.</param>
-        public OptionItem(char shortOptName, string? longOptName, OptionType optType, string? description = null, string? metavar = null, string? defaultValue = null)
-        {
-            ShortOptName = shortOptName;
-            LongOptName = longOptName;
-            OptType = optType;
-            Description = description;
-            Metavar = metavar;
-            Value = defaultValue;
-        }
+        public string? Value { get; set; } = defaultValue;
         #endregion
     }
 

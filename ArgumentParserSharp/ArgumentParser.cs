@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using ArgumentParserSharp.Exceptions;
@@ -11,7 +10,11 @@ namespace ArgumentParserSharp
     /// <summary>
     /// Argument parser class.
     /// </summary>
-    public class ArgumentParser
+    /// <remarks>
+    /// Promary ctor: Create argument parser with specified program name.
+    /// </remarks>
+    /// <param name="progName">Name of a program shown in help message.</param>
+    public class ArgumentParser(string progName)
     {
         #region Static members
         /// <summary>
@@ -47,11 +50,11 @@ namespace ArgumentParserSharp
         /// <summary>
         /// Name of this program.
         /// </summary>
-        public string ProgName { get; set; }
+        public string ProgName { get; set; } = progName;
         /// <summary>
         /// Rest of arguments.
         /// </summary>
-        public List<string> Arguments { get; }
+        public List<string> Arguments { get; } = [];
         /// <summary>
         /// Description for this program.
         /// </summary>
@@ -59,22 +62,22 @@ namespace ArgumentParserSharp
         /// <summary>
         /// String indent which used in <see cref="ShowUsage()"/>.
         /// </summary>
-        public string IndentString { get; set; }
+        public string IndentString { get; set; } = "  ";
         #endregion
 
         #region Members
         /// <summary>
         /// Option items.
         /// </summary>
-        private readonly List<OptionItem> _options;
+        private readonly List<OptionItem> _options = [];
         /// <summary>
         /// Dictionary for lookup option item with short name.
         /// </summary>
-        private readonly Dictionary<char, OptionItem> _shortOptDict;
+        private readonly Dictionary<char, OptionItem> _shortOptDict = [];
         /// <summary>
         /// Dictionary for lookup option item with long name.
         /// </summary>
-        private readonly Dictionary<string, OptionItem> _longOptDict;
+        private readonly Dictionary<string, OptionItem> _longOptDict = [];
         #endregion
 
         #region Ctors
@@ -84,20 +87,6 @@ namespace ArgumentParserSharp
         public ArgumentParser() :
             this(Environment.GetCommandLineArgs()[0])
         {
-        }
-
-        /// <summary>
-        /// Create argument parser with specified program name.
-        /// </summary>
-        /// <param name="progName">Name of a program shown in help message.</param>
-        public ArgumentParser(string progName)
-        {
-            ProgName = progName;
-            IndentString = "  ";
-            Arguments = [];
-            _options = [];
-            _shortOptDict = [];
-            _longOptDict = [];
         }
         #endregion
 
