@@ -1,14 +1,14 @@
 version: 1.0.{build}
 image: Visual Studio 2022
-install:
-- cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"'
+configuration: Release
+platform: Any CPU
+before_build:
+  - cmd: '"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"'
 build_script:
-- cmd: >-
-    nmake restore
-
-    nmake
-
-    nmake deploy
+  - cmd: |-
+      nmake restore
+      nmake
+      nmake deploy
 artifacts:
-- path: Artifacts\ArgumentParserSharp.zip
-  name: ArgumentParserSharp
+  - path: ArgumentParserSharp-net8.0.zip
+    name: ArgumentParserSharp
