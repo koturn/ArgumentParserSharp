@@ -2,13 +2,20 @@ version: 1.0.{build}
 image: Visual Studio 2022
 configuration: Release
 platform: Any CPU
-before_build:
-  - cmd: '"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"'
+install:
+- cmd: >-
+    "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
+
+    nmake restore
 build_script:
-  - cmd: |-
-      nmake restore
-      nmake
-      nmake deploy
+- cmd: >-
+    nmake
+
+    nmake deploy
 artifacts:
+  - path: Koturn.CommandLine-netstandard2.0.zip
+    name: Koturn.CommandLine-netstandard2.0
   - path: Koturn.CommandLine-net8.0.zip
-    name: Koturn.CommandLine
+    name: Koturn.CommandLine-net8.0
+  - path: Koturn.CommandLine-net9.0.zip
+    name: Koturn.CommandLine-net9.0
