@@ -10,5 +10,5 @@ build_script:
       nmake
       nmake deploy
 artifacts:
-  - path: ArgumentParserSharp-net8.0.zip
-    name: ArgumentParserSharp
+  - path: Koturn.CommandLine-net8.0.zip
+    name: Koturn.CommandLine

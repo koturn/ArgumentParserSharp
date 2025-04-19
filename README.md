@@ -1,7 +1,7 @@
-ArgumentParserSharp
-===================
+Koturn.CommandLine
+==================
 
-[![Test status](https://ci.appveyor.com/api/projects/status/ld7u66jhg7dstmuf/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/argumentparsersharp "AppVeyor | koturn/ArgumentParserSharp")
+[![Test status](https://ci.appveyor.com/api/projects/status/wvtmvwehnbqjcjvd/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/koturn-commandline "AppVeyor | koturn/Koturn.CommandLine")
 
 A Command Line Argument Parser for .NET.
 

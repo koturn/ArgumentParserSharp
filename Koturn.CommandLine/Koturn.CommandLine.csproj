@@ -7,9 +7,9 @@
     <Authors>koturn</Authors>
     <Company>koturn</Company>
     <Description>Command Line Argument Parser for .NET.</Description>
-    <PackageProjectUrl>https://github.com/koturn/ArgumentParserSharp</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/koturn/Koturn.CommandLine</PackageProjectUrl>
     <PackageLicenseFile>..\LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/koturn/ArgumentParserSharp</RepositoryUrl>
+    <RepositoryUrl>https://github.com/koturn/Koturn.CommandLine</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>

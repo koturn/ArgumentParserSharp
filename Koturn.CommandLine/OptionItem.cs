@@ -1,4 +1,4 @@
-namespace ArgumentParserSharp
+namespace Koturn.CommandLine
 {
     /// <summary>
     /// One option item.

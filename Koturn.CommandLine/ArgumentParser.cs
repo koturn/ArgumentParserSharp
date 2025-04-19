@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ArgumentParserSharp.Exceptions;
+using Koturn.CommandLine.Exceptions;
 
 
-namespace ArgumentParserSharp
+namespace Koturn.CommandLine
 {
     /// <summary>
     /// Argument parser class.

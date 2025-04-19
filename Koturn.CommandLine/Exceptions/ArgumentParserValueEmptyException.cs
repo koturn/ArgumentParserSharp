@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
-namespace ArgumentParserSharp.Exceptions
+namespace Koturn.CommandLine.Exceptions
 {
     /// <summary>
     /// <para>An exception caused in <see cref="ArgumentParser"/>.</para>

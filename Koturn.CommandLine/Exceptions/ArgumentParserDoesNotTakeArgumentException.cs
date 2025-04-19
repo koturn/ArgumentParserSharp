@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
-namespace ArgumentParserSharp.Exceptions
+namespace Koturn.CommandLine.Exceptions
 {
     /// <summary>
     /// This exception is throwed when an argument is given to a non argument-required option.
